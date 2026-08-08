@@ -2,7 +2,7 @@
 
 ![MyQuery2 screenshot](screenshot.png)
 
-A Java Swing JDBC desktop query tool for Oracle, PostgreSQL, MySQL, SQLite, and SDB.
+A Java Swing JDBC desktop query tool for Oracle, PostgreSQL, MySQL, and SDB.
 **MVP (Minimum Viable Product) edition** — subset of features for essential database work.
 
 ## What's in this package
@@ -16,13 +16,13 @@ A Java Swing JDBC desktop query tool for Oracle, PostgreSQL, MySQL, SQLite, and 
 | `myquery2.xml` | Application config (alternate) |
 | `myquery.ini` | JAVA_HOME config |
 | `log4j2.xml` | Logging config |
-| `jdbc/` | JDBC driver jars (PostgreSQL, MySQL, SQLite) |
+| `jdbc/` | JDBC driver jars (PostgreSQL, MySQL) |
 | `misc/` | Runtime dependency jars (Tika, Log4j, Gson, Guava) |
 
 ## Requirements
 
 - JDK 17+
-- A supported database server (Oracle, PostgreSQL, MySQL, SQLite, SDB)
+- A supported database server (Oracle, PostgreSQL, MySQL, SDB)
 
 ## Quick start
 
@@ -39,7 +39,7 @@ If `java` is not on your PATH, set `JAVA_HOME` in `myquery.ini`.
 ## MVP Features
 
 This MVP build includes:
-- JDBC connections to Oracle, PostgreSQL, MySQL, SQLite, SDB
+- JDBC connections to Oracle, PostgreSQL, MySQL, SDB
 - SQL query editor with multi-statement support
 - Paginated query results
 - Export to XML, CSV, HTML
@@ -47,7 +47,7 @@ This MVP build includes:
 - Basic CRUD (Insert/Update/Delete) on query results
 - Content/Attributes/DDL views
 - Tablespace/Role/User browsing
-- Disk usage charts (Oracle)
+- Disk usage charts
 
 ## Disabled features (MVP)
 
