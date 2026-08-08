@@ -71,25 +71,17 @@ SET CLASSPATH=%CLASSPATH%;misc\tika-parsers-1.24.jar
 SET CLASSPATH=%CLASSPATH%;misc\tika-langdetect-1.24.jar
 SET CLASSPATH=%CLASSPATH%;misc\language-detector-0.6.jar
 SET CLASSPATH=%CLASSPATH%;misc\sqlite-jdbc-3.47.1.0.jar
-REM ==============================
-REM Ora*i18n LCSD jars (Oracle proprietary — excluded from distribution).
-REM Users who need Oracle LCSD can drop these jars into misc/ and uncomment:
-REM SET CLASSPATH=%CLASSPATH%;misc\orai18n.jar
-REM SET CLASSPATH=%CLASSPATH%;misc\orai18n-mapping.jar
-REM SET CLASSPATH=%CLASSPATH%;misc\orai18n-lcsd.jar
+SET CLASSPATH=%CLASSPATH%;misc\orai18n.jar
+SET CLASSPATH=%CLASSPATH%;misc\orai18n-mapping.jar
+SET CLASSPATH=%CLASSPATH%;misc\orai18n-lcsd.jar
 
-REM ==============================
-REM JDBC drivers
-REM Only PostgreSQL is bundled (BSD 2-Clause).  Other drivers must be
-REM downloaded by the user and placed in jdbc/.
-SET JDBC_CLASSPATH=
 IF %SDB% == 1 (
-    FOR %%f IN ("jdbc\sdb-jdbc*.jar") DO SET JDBC_CLASSPATH=%%f
+    SET JDBC_CLASSPATH=jdbc\sdb-jdbc-2.59.0.jar
 ) ELSE (
-    FOR %%f IN ("jdbc\postgresql*.jar") DO SET JDBC_CLASSPATH=%%f
+    SET JDBC_CLASSPATH=jdbc\postgresql-42.7.3.jar
 )
-FOR %%f IN ("jdbc\ojdbc*.jar") DO SET JDBC_CLASSPATH=%JDBC_CLASSPATH%;%%f
-FOR %%f IN ("jdbc\mysql-connector*.jar") DO SET JDBC_CLASSPATH=%JDBC_CLASSPATH%;%%f
+SET JDBC_CLASSPATH=%JDBC_CLASSPATH%;jdbc\ojdbc11.jar
+SET JDBC_CLASSPATH=%JDBC_CLASSPATH%;jdbc\mysql-connector-j-9.0.0.jar
 SET CLASSPATH=%CLASSPATH%;%JDBC_CLASSPATH%
 
 ECHO JDBC drivers: %JDBC_CLASSPATH%
