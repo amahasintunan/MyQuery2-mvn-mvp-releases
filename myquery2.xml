@@ -13,7 +13,6 @@
         <exportFirst>0</exportFirst>                <!-- export table the first n rows (default 0 allrows)        -->
         <lcsd>tika</lcsd>                           <!-- lcsd oracle or tika (default tika)                       -->
         <browserPath>/opt/google/chrome/chrome</browserPath>
-        <publicAccess>false</publicAccess>       <!-- true=full features, false=MVP subset, set via pom.xml  -->
         <connectTimeout>45</connectTimeout>         <!-- HTTP connection timeout in seconds                       -->
     </globalProps>
     <jdbcDrivers>
@@ -42,6 +41,12 @@
             <portnumber>5432</portnumber>
             <url>jdbc:postgresql://[hostname]:[portnumber]/[dbname]</url>
         </jdbc>
+        -->
+        <!--
+          Oracle and MySQL JDBC drivers are NOT bundled (licensing restrictions).
+          Download the driver from the vendor and place it in jdbc/ first:
+            Oracle: https://www.oracle.com/database/technologies/appdev/jdbc-downloads.html
+            MySQL:  https://dev.mysql.com/downloads/connector/j/
         -->
         <jdbc>
             <name>oracle</name>
