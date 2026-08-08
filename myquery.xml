@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  File:        myquery.xml
+  Date:        01/17/2021
+  Description: My Database Query
+-->
+<query>
+    <globalProps>
+        <fetchLimit>1000</fetchLimit>               <!-- fetch data in chunks of n rows (default 0 all rows)      -->
+        <sampling>2000</sampling>                   <!-- fetch first n rows for a query (default 0 all rows)      -->
+        <refresh>0</refresh>                        <!-- refresh query every 0..60 seconds (default 0 no refresh) -->
+        <translationLength>4096</translationLength> <!-- Translation limit of 4K characters (default 0 no limit)  -->
+        <exportFirst>0</exportFirst>                <!-- export table the first n rows (default 0 allrows)        -->
+        <lcsd>tika</lcsd>                           <!-- lcsd oracle or tika (default tika)                       -->
+        <browserPath>/opt/google/chrome/chrome</browserPath>
+        <publicAccess>false</publicAccess>       <!-- true=full features, false=MVP subset, set via pom.xml  -->
+        <connectTimeout>45</connectTimeout>         <!-- HTTP connection timeout in seconds                       -->
+    </globalProps>
+    <jdbcDrivers>
+        <!--
+        <jdbc>
+            <name>postgres</name>
+            <description>Postgres JDBC driver</description>
+            <driver>org.postgresql.Driver</driver>
+            <connectName></connectName>
+            <dbname>postgres</dbname>
+            <userid>postgres</userid>
+            <password>postgres</password>
+            <hostname>localhost</hostname>
+            <portnumber>5432</portnumber>
+            <url>jdbc:postgresql://[hostname]:[portnumber]/[dbname]</url>
+        </jdbc>
+        -->
+        <jdbc>
+            <name>postgres</name>
+            <description>Postgres JDBC driver</description>
+            <driver>org.postgresql.Driver</driver>
+            <connectName></connectName>
+            <dbname>sdbmain</dbname>
+            <userid>saydb</userid>
+            <password>saydb</password>
+            <hostname>localhost</hostname>
+            <portnumber>5432</portnumber>
+            <url>jdbc:postgresql://[hostname]:[portnumber]/[dbname]</url>
+        </jdbc>
+        <jdbc>
+            <name>oracle</name>
+            <description>Oracle thin JDBC driver</description>
+            <driver>oracle.jdbc.driver.OracleDriver</driver>
+            <connectName></connectName>
+            <dbname>ldbmain</dbname>
+            <userid>sys as sysdba</userid>
+            <password>change_on_install</password>
+            <hostname>localhost</hostname>
+            <portnumber>1521</portnumber>
+            <url>jdbc:oracle:thin:@[hostname]:[portnumber]/[dbname]</url>
+        </jdbc>
+        <jdbc>
+            <name>mysql</name>
+            <description>MySQL JDBC driver</description>
+            <driver>com.mysql.cj.jdbc.Driver</driver>
+            <connectName></connectName>
+            <dbname>mysql</dbname>
+            <userid>root</userid>
+            <password>mysql</password>
+            <hostname>localhost</hostname>
+            <portnumber>3306</portnumber>
+            <url>jdbc:mysql://[hostname]:[portnumber]/[dbname]</url>
+        </jdbc>
+    </jdbcDrivers>
+</query>
+
