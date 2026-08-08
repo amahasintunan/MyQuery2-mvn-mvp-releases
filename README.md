@@ -13,7 +13,6 @@ A Java Swing JDBC desktop query tool for Oracle, PostgreSQL, MySQL, and SDB.
 | `myquery2.sh` | Linux/Mac launcher |
 | `myquery2.bat` | Windows launcher |
 | `myquery.xml` | Application config (JDBC drivers) |
-| `myquery2.xml` | Application config (alternate) |
 | `myquery.ini` | JAVA_HOME config |
 | `log4j2.xml` | Logging config |
 | `jdbc/` | JDBC driver jars (PostgreSQL, MySQL) |
@@ -64,11 +63,3 @@ The following features are disabled in this MVP edition:
 - Monitor
 
 For full feature access, use the standard [MyQuery2-mvn-releases](https://github.com/amahasintunan/MyQuery2-mvn-releases) edition.
-
-## Oracle support (optional)
-
-Oracle JDBC driver is NOT bundled (Oracle OTN license). To enable Oracle connections:
-
-1. Download `ojdbc11.jar` from [Oracle JDBC](https://www.oracle.com/database/technologies/appdev/jdbc-downloads.html)
-2. Place it in the `jdbc/` directory
-3. The launcher scripts auto-detect it
