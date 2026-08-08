@@ -1,5 +1,7 @@
 # MyQuery2 v2.0 MVP — JDBC Desktop Database Query Tool
 
+![MyQuery2 screenshot](screenshot.png)
+
 A Java Swing JDBC desktop query tool for Oracle, PostgreSQL, MySQL, SQLite, and SDB.
 **MVP (Minimum Viable Product) edition** — subset of features for essential database work.
 
