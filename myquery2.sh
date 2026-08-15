@@ -5,18 +5,6 @@
 # Description.
 #       MyQuery - A database query tool implemented in Java/Jdbc/Swing.
 #
-SDB=0
-if [ $# -ge 1 ]
-then
-   if [ $1 == "sdb" ]
-   then
-      SDB=1
-   else
-      echo "usage myquery2.sh [sdb]"
-      exit 2
-   fi
-fi
-
 cd "`dirname $0`"
 
 # ── JAVA_HOME resolution: env → PATH → ini ────────────────────────────────
@@ -74,28 +62,19 @@ CLASSPATH=$CLASSPATH:misc/tika-parsers-1.24.jar
 CLASSPATH=$CLASSPATH:misc/tika-langdetect-1.24.jar
 CLASSPATH=$CLASSPATH:misc/language-detector-0.6.jar
 CLASSPATH=$CLASSPATH:misc/sqlite-jdbc-3.47.1.0.jar
-
 # Ora*i18n LCSD jars (Oracle proprietary — excluded from distribution).
 # Users who need Oracle LCSD can drop these jars into misc/ and uncomment:
 # CLASSPATH=$CLASSPATH:misc/orai18n.jar
 # CLASSPATH=$CLASSPATH:misc/orai18n-mapping.jar
 # CLASSPATH=$CLASSPATH:misc/orai18n-lcsd.jar
 
-# ── JDBC drivers ─────────────────────────────────────────────────────────
-# Only PostgreSQL is bundled (BSD 2‑Clause).  Other drivers must be
-# downloaded by the user and placed in jdbc/.
-JDBC_CLASSPATH=
-if [ $SDB -eq 1 ]; then
-    [ -f "jdbc/sdb-jdbc"*".jar" ] && JDBC_CLASSPATH=$(echo jdbc/sdb-jdbc*.jar | head -1)
-else
-    [ -f "jdbc/postgresql"*".jar" ] && JDBC_CLASSPATH=$(echo jdbc/postgresql*.jar | head -1)
-fi
-[ -f "jdbc/ojdbc"*".jar" ]              && JDBC_CLASSPATH=$JDBC_CLASSPATH:$(echo jdbc/ojdbc*.jar | head -1)
-[ -f "jdbc/mysql-connector"*".jar" ]    && JDBC_CLASSPATH=$JDBC_CLASSPATH:$(echo jdbc/mysql-connector*.jar | head -1)
-CLASSPATH=$CLASSPATH:$JDBC_CLASSPATH
+# All JDBC drivers (PostgreSQL, SDB, Oracle, MySQL) are loaded in isolation by
+# the application via <jarfile> in myquery.xml, so drivers that share class
+# names (e.g. PostgreSQL and SDB, both defining org.postgresql.Driver) don't
+# clash and any mix of them can be connected to at the same time.
 printf  "%s`$JAVA_CMD -fullversion`"
-printf  "jdbc drivers: %s\n" $JDBC_CLASSPATH
-$JAVA_CMD -cp $CLASSPATH -Xms2g -Xmx8g -Dlog4j.configurationFile=log4j2.xml -Dmyquery.config=myquery.xml myquery.MyQuery
+printf  "jdbc drivers (isolated):   jdbc/postgresql-*.jar, jdbc/sdb-jdbc-*.jar, jdbc/ojdbc*.jar, jdbc/mysql-connector-j-*.jar\n"
+$JAVA_CMD -cp $CLASSPATH -Xms2g -Xmx8g -Dlog4j.configurationFile=log4j2.xml myquery.MyQuery
 rc=$?
 if [ $rc -eq 127 ]; then
   # exit code 127 - command not found 

@@ -6,15 +6,6 @@
 @ECHO off
 SETLOCAL EnableDelayedExpansion
 
-IF "%1" == "" (
-   SET SDB=0
-) ELSE IF "%1" == "sdb" (
-   SET SDB=1
-) ELSE (
-   ECHO usage myquery2.bat [sdb]
-   EXIT /b 2
-)
-
 REM Change to the directory containing this script
 cd /D "%~dp0"
 
@@ -78,23 +69,14 @@ REM SET CLASSPATH=%CLASSPATH%;misc\orai18n.jar
 REM SET CLASSPATH=%CLASSPATH%;misc\orai18n-mapping.jar
 REM SET CLASSPATH=%CLASSPATH%;misc\orai18n-lcsd.jar
 
-REM ==============================
-REM JDBC drivers
-REM Only PostgreSQL is bundled (BSD 2-Clause).  Other drivers must be
-REM downloaded by the user and placed in jdbc/.
-SET JDBC_CLASSPATH=
-IF %SDB% == 1 (
-    FOR %%f IN ("jdbc\sdb-jdbc*.jar") DO SET JDBC_CLASSPATH=%%f
-) ELSE (
-    FOR %%f IN ("jdbc\postgresql*.jar") DO SET JDBC_CLASSPATH=%%f
-)
-FOR %%f IN ("jdbc\ojdbc*.jar") DO SET JDBC_CLASSPATH=%JDBC_CLASSPATH%;%%f
-FOR %%f IN ("jdbc\mysql-connector*.jar") DO SET JDBC_CLASSPATH=%JDBC_CLASSPATH%;%%f
-SET CLASSPATH=%CLASSPATH%;%JDBC_CLASSPATH%
+REM All JDBC drivers (PostgreSQL, SDB, Oracle, MySQL) are loaded in isolation by
+REM the application via <jarfile> in myquery.xml, so drivers that share class
+REM names (e.g. PostgreSQL and SDB, both defining org.postgresql.Driver) don't
+REM clash and any mix of them can be connected to at the same time.
 
-ECHO JDBC drivers: %JDBC_CLASSPATH%
+ECHO JDBC drivers (isolated): jdbc\postgresql-*.jar, jdbc\sdb-jdbc-*.jar, jdbc\ojdbc*.jar, jdbc\mysql-connector-j-*.jar
 
-"%JAVA_CMD%" -cp %CLASSPATH% -Xms2g -Xmx8g -Dlog4j.configurationFile=log4j2.xml -Dmyquery.config=myquery2.xml myquery.MyQuery
+"%JAVA_CMD%" -cp %CLASSPATH% -Xms2g -Xmx8g -Dlog4j.configurationFile=log4j2.xml myquery.MyQuery
 SET RC=%ERRORLEVEL%
 IF %RC% EQU 127 (
     ECHO The specified JAVA path does not exist. Check the setting of JAVA_HOME in myquery.ini.
